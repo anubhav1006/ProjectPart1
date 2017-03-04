@@ -57,9 +57,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
+
+                    Toast.makeText(getApplicationContext(), "onAuthStateChanged:signed_in:" + user.getUid(),Toast.LENGTH_LONG).show();
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), AdminPage.class));
                 } else {
                     // User is signed out
+                    Toast.makeText(getApplicationContext(),"onAuthStateChanged:signed_out",Toast.LENGTH_LONG).show();
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
             }
@@ -78,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             @Override
             public void onClick(View v) {
                 signIn();
+
             }
         });
         textView.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
+
     }
 
     @Override
@@ -108,8 +115,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
 
-                finish();
-                startActivity(new Intent(getApplicationContext(), AdminPage.class));
             } else {
                 // Google Sign In failed, update UI appropriately
                 // ...
