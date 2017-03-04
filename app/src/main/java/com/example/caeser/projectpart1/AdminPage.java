@@ -66,7 +66,8 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
 
 
 
-        userName.setText(user.getEmail().toString().trim());
+        //if(!(userName==null))
+        //userName.setText(user.getEmail().toString().trim());
     }
 
     @Override
